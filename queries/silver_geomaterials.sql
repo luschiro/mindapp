@@ -23,6 +23,7 @@ select
   lower(ima_status[1]) as descImaStatus,
   varietyof as idVarietyOf,
 
-  updttime as dtUpdatedAt
+  updttime as dtUpdatedAt,
+  date_trunc('day', updttime) as testin
     
-from df_all
+from bronze_geomaterials
