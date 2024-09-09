@@ -24,6 +24,7 @@ select
   varietyof as idVarietyOf,
 
   updttime as dtUpdatedAt,
-  date_trunc('day', updttime) as testin
+  lower(occurrence) as descOccurrence,
+  publication_year as vlPublicationYear
     
 from bronze_geomaterials
