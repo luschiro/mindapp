@@ -14,25 +14,26 @@ with t as (
       when entrytype = 8 then 'commodity'
     else 'other' end as descEntryType,
 
-    lower(colour) as descColour,
+    -- chemical information
     mindat_formula,
-
     replace(replace(mindat_formula, '<sub>', ''), '</sub>', '') as s1,
     replace(replace(s1, '<sup>', '('), '</sup>', ')') as s2,
     replace(replace(s2, '<b>', ''), '</b>', '') as descMindatFormula,
-
     case when elements = '[]' then null else elements end as descElements,
     case when key_elements = '[]' then null else key_elements end as descKeyElements,
-    
     lower(csystem) as descCrystalSystem,
-    case when ima_status = '[]' then null else ima_status end as descImaStatus,
     
+    -- physical properties
+    lower(colour) as descColour,
+
+    -- meta
+    case when ima_status = '[]' then null else ima_status end as descImaStatus,
     case when varietyof != 0 then varietyof else null end as idVarietyOf,
-
-    updttime as dtUpdatedAt,
     lower(occurrence) as descOccurrence,
+    case when publication_year != 0 then publication_year else null end as vlPublicationYear,
 
-    case when publication_year != 0 then publication_year else null end as vlPublicationYear
+    -- update
+    updttime as dtUpdatedAt
       
   from bronze_geomaterials
 )
@@ -41,15 +42,15 @@ select
   idMineral,
   descName,
   descEntryType,
-  descColour,
   descMindatFormula,
   descElements,
   descKeyElements,
   descCrystalSystem,
+  descColour,
   descImaStatus,
   idVarietyOf,
-  dtUpdatedAt,
   descOccurrence,
-  vlPublicationYear
+  vlPublicationYear,
+  dtUpdatedAt
 from t
 order by idMineral asc
