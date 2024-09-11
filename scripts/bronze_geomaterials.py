@@ -1,18 +1,19 @@
 import os
+import dotenv
+import json
+import time
 
 import numpy as np
 import pandas as pd
-import requests
-import dotenv
-import json
 
+import requests
 import duckdb
 
 # setup
 API_KEY = dotenv.get_key(".env", "api_min")
 
 # API root entry point
-MINDAT_API_URL = "https://api.mindat.org"
+URL = "https://api.mindat.org"
 
 # authorization header that must be included with each request.
 headers = {'Authorization': 'Token ' + API_KEY}
@@ -26,7 +27,7 @@ duckdb.execute("SET GLOBAL pandas_analyze_sample = 100_000")
 
 # making a request
 
-endpoint = MINDAT_API_URL + "/geomaterials/"
+endpoint = URL + "/geomaterials/"
 
 df_all = pd.DataFrame()
 for page in range(1,60):
