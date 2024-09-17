@@ -9,3 +9,5 @@ Testing the Mindat API and running some data scripts. The project aims to:
 * create an exploratory data analysis notebook
 * **load** gold layer analytical tables
 * use a dataviz tool to report insights
+
+* moved to linux
