@@ -3,11 +3,13 @@ import dotenv
 import time
 
 import requests
-import json
 import pandas as pd
+import duckdb
+
+from dirs import DATA_DIR
 
 # setup
-API_KEY = dotenv.get_key(".env", "api_min")
+API_KEY = dotenv.get_key(dotenv.find_dotenv('.env'), "api_min")
 
 # API root entry point
 URL = "https://api.mindat.org"
@@ -16,18 +18,13 @@ endpoint = URL + "/geomaterials/"
 # authorization header that must be included with each request.
 headers = {'Authorization': 'Token ' + API_KEY}
 
-# directories
-DATA_DIR = os.path.join(os.path.abspath('./'), 'data')
-QUERIES_DIR = os.path.join(os.path.abspath('./'), 'queries')
-
-
 # making requests
 df_all = pd.DataFrame() # df with raw data from all API pages
 
-for page in range(1,60): # iterating over all pages
+for page in range(1,2): # iterating over all pages
     filter_dict = {
         'page': page,
-        'page_size':1000
+        'page_size': 1000
     }
   
     # testin API response
@@ -49,6 +46,6 @@ for page in range(1,60): # iterating over all pages
     except Exception:
         print('Error while trying to create dataframe','page-', page)
 
-# creating raw csv file
+# creating raw parquet file
 df_all.reset_index(inplace=True, drop=True)
-df_all.to_csv(os.path.join(DATA_DIR, "raw_geomaterials.csv"))
+df_all_parquet = duckdb.from_df(df_all).to_parquet(os.path.join(DATA_DIR, "raw_geomaterials.parquet"))
