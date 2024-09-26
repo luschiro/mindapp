@@ -21,7 +21,7 @@ headers = {'Authorization': 'Token ' + API_KEY}
 # making requests
 df_all = pd.DataFrame() # df with raw data from all API pages
 
-for page in range(1,2): # iterating over all pages
+for page in range(1,60): # iterating over all pages
     filter_dict = {
         'page': page,
         'page_size': 1000
@@ -48,4 +48,4 @@ for page in range(1,2): # iterating over all pages
 
 # creating raw parquet file
 df_all.reset_index(inplace=True, drop=True)
-df_all_parquet = duckdb.from_df(df_all).to_parquet(os.path.join(DATA_DIR, "raw_geomaterials.parquet"))
+duckdb.from_df(df_all).to_parquet(os.path.join(DATA_DIR, "raw_geomaterials.parquet"))

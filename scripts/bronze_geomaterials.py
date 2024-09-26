@@ -1,33 +1,20 @@
 import os
 import duckdb
+from dirs import DATA_DIR
 
-# directories
-DATA_DIR = os.path.join(os.path.abspath('./'), 'data')
-QUERIES_DIR = os.path.join(os.path.abspath('./'), 'queries')
 
 # fixing pandas analyzer
 duckdb.execute("SET GLOBAL pandas_analyze_sample = 100_000")
 
 
 def bronze_ingestion():
-    """ creates the 
-
-    """
+    """creates bronze table"""
     print('Starting bronze ingestion!')
-    try:
-        bronze_geomaterials = duckdb.read_csv(
-            os.path.join(DATA_DIR, "raw_geomaterials.csv"),
-            sample_size=-1)
-        
-        bronze_geomaterials.to_parquet(
-            os.path.join(DATA_DIR, "bronze_geomaterials.parquet"))
-        
-        print('Bronze table created!')
-    except:
-        print('Error while creating bronze table!')
+    # try:
+    bronze_geomaterials = duckdb.read_parquet(os.path.join(DATA_DIR, "raw_geomaterials.parquet"))
+    bronze_geomaterials.to_csv(os.path.join(DATA_DIR, "bronze_geomaterials.csv"))
+    print('Bronze table created!')
+    # except:
+        # print('Error while creating bronze table!')
 
-def main():
-    bronze_ingestion()
-
-if __name__ == '__main__':
-    main()
+bronze_ingestion()
