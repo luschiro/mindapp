@@ -1,10 +1,13 @@
 with t as (
  select
-  column000 as idTable,
+  
   id as idGeomaterial,
   longid as idLongId,
   guid as idGUID,
+
   name as descName,
+  case when entrytype_text = 'commodity' then SUBSTR(name, INSTR(name, ':') + 1) else name end descNameCorrected,
+
   updttime as dtUpdatedTime,
   mindat_formula as descMindatFormula,
   mindat_formula_note as descMindatFormulaNote,
@@ -166,10 +169,7 @@ with t as (
   rimin as vlRiMin,
   rimax as vlRiMax,
   weighting as vlWeighting
-  
-  
-  
-  
+
   -- select
   --   id as idMineral,
   --   longid as idLongId,
@@ -232,7 +232,5 @@ select
   -- descOccurrence,
   -- vlPublicationYear,
   -- dtUpdatedAt
-*
+    *
 from t
-limit 10
--- order by idMineral asc

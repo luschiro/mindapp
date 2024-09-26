@@ -12,7 +12,7 @@ def bronze_ingestion():
     print('Starting bronze ingestion!')
     # try:
     bronze_geomaterials = duckdb.read_parquet(os.path.join(DATA_DIR, "raw_geomaterials.parquet"))
-    bronze_geomaterials.to_csv(os.path.join(DATA_DIR, "bronze_geomaterials.csv"))
+    bronze_geomaterials.to_csv(os.path.join(DATA_DIR, "bronze_geomaterials.csv"), overwrite=True)
     print('Bronze table created!')
     # except:
         # print('Error while creating bronze table!')
