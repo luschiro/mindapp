@@ -1,4 +1,7 @@
 .env
-data/bronze_geomaterials.csv
-data/raw_geomaterials.parquet
 .vscode
+
+
+data/raw_geomaterials.parquet
+data/bronze_geomaterials.csv
+data/silver_geomaterials.csv
