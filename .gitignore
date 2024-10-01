@@ -1,5 +1,5 @@
 .env
-data
 *.csv
 data/bronze_geomaterials.csv
+data/raw_geomaterials.parquet
 .vscode
