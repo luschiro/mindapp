@@ -2,16 +2,13 @@
 select
     idGeomaterial,
     idGroup,
-    descNameCorrected,
+    descName,
     rtrim(ltrim(descElements, '['), ']') as descElements,
     descEntryTypeText,
     vlDiscoveryYear,
     vlWeighting,
     
-    -- optical features
-    
-
-    
+    -- optical features   
     descOpticalType,
     descOpticalSign,
     descOpticalDispersion,
@@ -25,7 +22,6 @@ select
     descOpticalAnisotropism,
     descOpticalBireflectance,
     descOpticalR,
-
 
     vlOpticalAlpha,
     vlOpticalBeta,

@@ -4,9 +4,8 @@ with t as (
   id as idGeomaterial,
   longid as idLongId,
   guid as idGUID,
-
-  name as descName,
-  case when entrytype_text = 'commodity' then SUBSTR(name, INSTR(name, ':') + 1) else name end descNameCorrected,
+  
+  case when entrytype_text = 'commodity' then SUBSTR(name, INSTR(name, ':') + 1) else name end descName,
 
   updttime as dtUpdatedTime,
   mindat_formula as descMindatFormula,

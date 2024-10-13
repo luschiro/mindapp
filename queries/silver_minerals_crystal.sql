@@ -2,7 +2,7 @@
 select
     idGeomaterial,
     idGroup,
-    descNameCorrected,
+    descName,
     rtrim(ltrim(descElements, '['), ']') as descElements,
     descEntryTypeText,
     vlDiscoveryYear,
