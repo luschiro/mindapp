@@ -3,7 +3,11 @@ select
     idGeomaterial,
     idGroup,
     descName,
-    rtrim(ltrim(descElements, '['), ']') as descElements,
+
+    descMindatFormula,
+
+    descElements,
+    descKeyElements,
     descEntryTypeText,
     vlDiscoveryYear,
     vlWeighting,
@@ -17,7 +21,7 @@ select
     descLustreType,
     descStreak,
     descDescriptionShort,
-    descCleavegeType,
+    descCleavageType,
     descFractureType,
     descMorphology,
     descTwinning,

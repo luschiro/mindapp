@@ -4,30 +4,30 @@ with t as (
   id as idGeomaterial,
   longid as idLongId,
   guid as idGUID,
-  
+
   case when entrytype_text = 'commodity' then SUBSTR(name, INSTR(name, ':') + 1) else name end descName,
 
   updttime as dtUpdatedTime,
-  mindat_formula as descMindatFormula,
+  REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(mindat_formula, '<sub>', ''), '</sub>', ''), '<sup>', ''), '</sup>', ''), '<b>', ''), '</b>', '') AS descMindatFormula,
   mindat_formula_note as descMindatFormulaNote,
   ima_formula as descImaFormula,
-  ima_status as descImaStatus, -- category, array
+  case when ima_status = '[]' then null else ima_status end as descImaStatus, -- category, array
   ima_notes as descImaNotes, -- category, array
-  varietyof as idVarietOf,
+  case when varietyof != 0 then varietyof else null end as idVarietyOf,
   synid as idSyn, -- ??
   
   polytypeof as idPolyTypeOf,
   groupid as idGroup,
   entrytype as idEntryType,
   entrytype_text as descEntryTypeText,
-  description_short as descDescriptionShort,
+  lower(description_short) as descDescriptionShort,
 
   impurities as descImpurities,
-  elements as descElements, -- array
+  rtrim(ltrim(elements, '['), ']') as descElements, -- array
   sigelements as descSigElements, -- array 
   tlform as descTlForm,
   cim as idCIM,
-  occurrence as descOccurrence,
+  lower(occurrence) as descOccurrence,
   otheroccurrence as descOtherOccurrence,
   industrial as descIndustrial,
   try_cast(discovery_year as int32) as vlDiscoveryYear,
@@ -49,13 +49,13 @@ with t as (
   try_cast(vhnerror as int32) as vlVhnerror,
   vhng as vlVhng,
   vhns as vlVhns,
-  luminescence descLuminescence,
+  lower(luminescence) as descLuminescence,
   lower(lustre) as descLustre,
   lower(lustretype) as descLustreType,
   aboutname as descAboutName,
   other as descOtherDescription,
   lower(streak) as descStreak,
-  csystem as descCSystem,
+  lower(csystem) as descCSystem,
   try_cast(cclass as int16) as vlCClass,
   try_cast(spacegroup as int16) as vlSpaceGroup,
   
@@ -81,11 +81,11 @@ with t as (
   try_cast(dmeaserror as int16) as vlDMeasError,
   try_cast(dcalcerror as int16) as vlDCalcError,
   
-  cleavagetype descCleavageType,
-  fracturetype as descFraactureType,
-  morphology as descMorphology,
-  twinning as descTwinning,
-  epitaxidescription as descEpitaxDescription,
+  lower(cleavagetype) descCleavageType,
+  lower(fracturetype) as descFractureType,
+  lower(morphology) as descMorphology,
+  lower(twinning) as descTwinning,
+  lower(epitaxidescription) as descEpitaxDescription,
   
   opticaltype as descOpticalType,
   opticalsign descOpticalSign,
@@ -156,80 +156,22 @@ with t as (
   specdispm as descSpecDispm,
   spacegroupset as descSpaceGroupSet,
   try_cast(approval_year as int16) as vlApprovalYear,
-  try_cast(publication_year as int16) as vlPublicationyear,
+  case when publication_year != 0 then try_cast(publication_year as int16) else null end as vlPublicationYear,
   ima_history as descImaHistory,
   rock_parent as idRockParent,
   rock_parent2 as idRockParent2,
   try_cast(rock_root as int16) as flRockRoot,
   rock_bgs_code as descRockBgsCode,
   meteoritical_code as descMeteoriticalCode,
-  case when key_elements = '[]' then null else key_elements end as descKeyElements,
+  rtrim(ltrim(key_elements, '['), ']') as descKeyElements,
   shortcode_ima as descShortcodeIma,
   rimin as vlRiMin,
   rimax as vlRiMax,
   weighting as vlWeighting
-
-  -- select
-  --   id as idMineral,
-  --   longid as idLongId,
-  --   guid as idGuid,
-  --   name as descName,
-
-  --   -- update
-  --   updttime as dtUpdatedAt,
-  --    -- chemical information
-  --   mindat_formula,
-  --   replace(replace(mindat_formula, '<sub>', ''), '</sub>', '') as s1,
-  --   replace(replace(s1, '<sup>', '('), '</sup>', ')') as s2,
-  --   replace(replace(s2, '<b>', ''), '</b>', '') as descMindatFormula,
-  --   mindat_formula_note as descMineralFormulaNote,
-  --   ima_formula as descImaFormula,
-
-
-
-
-  --   case
-  --     when entrytype = 0 then 'mineral'
-  --     when entrytype = 1 then 'synonym'
-  --     when entrytype = 2 then 'variety'
-  --     when entrytype = 3 then 'mixture'
-  --     when entrytype = 4 then 'series'
-  --     when entrytype = 5 then 'grouplist'
-  --     when entrytype = 6 then 'polytype'
-  --     when entrytype = 7 then 'rock'
-  --     when entrytype = 8 then 'commodity'
-  --   else 'other' end as descEntryType,
-
-   
-  --   case when elements = '[]' then null else elements end as descElements,
-  --   case when key_elements = '[]' then null else key_elements end as descKeyElements,
-  --   lower(csystem) as descCrystalSystem,
-    
-  --   -- physical properties
-  --   lower(colour) as descColour,
-
-  --   -- meta
-  --   case when ima_status = '[]' then null else ima_status end as descImaStatus,
-  --   case when varietyof != 0 then varietyof else null end as idVarietyOf,
-  --   lower(occurrence) as descOccurrence,
-  --   case when publication_year != 0 then publication_year else null end as vlPublicationYear,
-
+  
   from bronze_geomaterials
 )
 
 select
-  -- idMineral,
-  -- descName,
-  -- descEntryType,
-  -- descMindatFormula,
-  -- descElements,
-  -- descKeyElements,
-  -- descCrystalSystem,
-  -- descColour,
-  -- descImaStatus,
-  -- idVarietyOf,
-  -- descOccurrence,
-  -- vlPublicationYear,
-  -- dtUpdatedAt
     *
 from t
