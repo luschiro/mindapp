@@ -32,8 +32,7 @@ for page in range(1,60): # iterating over all pages
     while (code != 200 and code != 404):
         time.sleep(1)
         print('Trying', endpoint, page)
-        response = requests.get(endpoint,params=filter_dict,
-                                headers=headers,timeout=30)
+        response = requests.get(endpoint,params=filter_dict,headers=headers,timeout=30)
         code = response.status_code
   
     try:
