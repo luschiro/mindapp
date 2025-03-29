@@ -20,10 +20,12 @@ def silver_ingestion(query:str):
     """
     """
     print('Starting silver ingestion!')
+
     silver_geomaterials = duckdb.sql(query)
     silver_geomaterials.write_csv(
         os.path.join(DATA_DIR,"silver_geomaterials.csv"),
         overwrite=True)
+    
     print('Silver table created!')
     
     return silver_geomaterials

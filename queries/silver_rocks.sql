@@ -4,7 +4,6 @@ select
 	idLongId,
 	idGUID,
 	descName,
-    descNameCorrected,
 	descDescriptionShort,
 	descColour,
 	idRockParent,
