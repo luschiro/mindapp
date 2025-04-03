@@ -5,3 +5,7 @@ data/bronze_geomaterials.csv
 data/silver_geomaterials.csv
 
 data/*
+
+*.excalidraw
+*mindapp.excalidraw
+*.Identifier
