@@ -169,7 +169,7 @@ with t as (
   rimax as vlRiMax,
   weighting as vlWeighting
   
-  from bronze_geomaterials
+  from {table}
 )
 
 select

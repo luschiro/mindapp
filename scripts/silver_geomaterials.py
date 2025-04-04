@@ -12,8 +12,7 @@ def load_query(query_name):
 
 def load_bronze():
     bronze_tb = duckdb.read_csv(
-        os.path.join(DATA_DIR, f'bronze_geomaterials.csv'),
-        sample_size=-1)
+        os.path.join(DATA_DIR, f'bronze_geomaterials.csv'),sample_size=-1)
     return bronze_tb
 
 def silver_ingestion(query:str):
@@ -23,8 +22,7 @@ def silver_ingestion(query:str):
 
     silver_geomaterials = duckdb.sql(query)
     silver_geomaterials.write_csv(
-        os.path.join(DATA_DIR,"silver_geomaterials.csv"),
-        overwrite=True)
+        os.path.join(DATA_DIR,"silver_geomaterials.csv"),overwrite=True)
     
     print('Silver table created!')
     

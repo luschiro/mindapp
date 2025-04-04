@@ -1,5 +1,4 @@
 select
-	
 	idGeomaterial,
 	idLongId,
 	idGUID,
@@ -10,10 +9,7 @@ select
 	idROckParent2,
 	flRockRoot,
 	descMeteoriticalCode,
-	
 	vlWeighting
 from silver_geomaterials
 where descEntryTypeText = 'rock'
 order by descName
-
-limit 10
